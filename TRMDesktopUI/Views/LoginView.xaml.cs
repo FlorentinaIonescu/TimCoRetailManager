@@ -18,9 +18,9 @@ namespace TRMDesktopUI.Views
     /// <summary>
     /// Interaction logic for LoginViewControl.xaml
     /// </summary>
-    public partial class LoginViewControl : UserControl
+    public partial class LoginView : UserControl
     {
-        public LoginViewControl()
+        public LoginView()
         {
             InitializeComponent();
         }
