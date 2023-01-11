@@ -35,15 +35,15 @@ namespace TRMDesktopUI.ViewModels
         }
 
 
-        private string _itemQuantity;
+        private int _itemQuantity;
 
-		public string ItemQuantity
+		public int ItemQuantity
 		{
 			get { return _itemQuantity; }
 			set
 			{
 				_itemQuantity = value;
-                NotifyOfPropertyChange(() => Products);
+                NotifyOfPropertyChange(() => ItemQuantity);
             }
 		}
 
@@ -104,6 +104,23 @@ namespace TRMDesktopUI.ViewModels
         }
 
         public void RemoveFromCart()
+        {
+
+        }
+
+        public bool CanCheckOut
+        {
+            get
+            {
+                bool output = false;
+
+                // Make sure there is something in the cart
+
+                return output;
+            }
+        }
+
+        public void CheckOut()
         {
 
         }
