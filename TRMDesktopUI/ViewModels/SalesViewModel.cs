@@ -15,6 +15,7 @@ namespace TRMDesktopUI.ViewModels
     {
         IProductEndpoint _productEndpoint;
 
+
         public SalesViewModel(IProductEndpoint productEndpoint)
         {
             _productEndpoint = productEndpoint;
@@ -29,7 +30,7 @@ namespace TRMDesktopUI.ViewModels
         private async Task LoadProducts()
         {
             var productList = await _productEndpoint.GetAll();
-            Products = new BindingList<ProductModel>();
+            Products = new BindingList<ProductModel>(productList);
         }
         
         private BindingList<ProductModel> _products;
