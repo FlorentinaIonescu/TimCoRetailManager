@@ -7,4 +7,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="AuthUserId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="b5b5b963-fddb-4835-807d-267dc4bd472f" ChangeDateTime="01/12/2023 22:37:00">
+    <Property Name="ElementName" Value="[dbo].[FK_Inventory_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Inventory]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Inventory_ToProduct]" />
+  </Operation>
 </Operations>
