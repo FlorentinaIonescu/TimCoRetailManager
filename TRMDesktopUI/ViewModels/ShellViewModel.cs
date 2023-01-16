@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using TRMDesktopUI.EventModels;
+using TRMDesktopUI.Library.Api;
 using TRMDesktopUI.Library.Models;
 
 namespace TRMDesktopUI.ViewModels
@@ -15,13 +16,17 @@ namespace TRMDesktopUI.ViewModels
         private IEventAggregator _events;
         private SalesViewModel _salesVM;
         private ILoggedInUserModel _user;
+        private IAPIHelper _apiHelper;
 
         // construction injection
-        public ShellViewModel(IEventAggregator events, SalesViewModel salesVM, ILoggedInUserModel user)
+        public ShellViewModel(IEventAggregator events, SalesViewModel salesVM,
+            ILoggedInUserModel user, IAPIHelper apiHelper)
         {
             _events = events;
             _salesVM = salesVM;
             _user = user;
+            _apiHelper = apiHelper;
+
             _events.Subscribe(this);
 
             ActivateItemAsync(IoC.Get<LoginViewModel>());
@@ -31,14 +36,13 @@ namespace TRMDesktopUI.ViewModels
         public Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
         {
             ActivateItemAsync(_salesVM);
+            NotifyOfPropertyChange(() => IsLoggedIn);
             return Task.CompletedTask;
-            NotifyOfPropertyChange(() => IsAccountVisible);
         }
 
-        public bool IsLoggedIn()
+        public bool IsLoggedIn
         {
             get
-
             {
                 bool output = false;
 
@@ -53,9 +57,10 @@ namespace TRMDesktopUI.ViewModels
 
         public void LogOut()
         {
-            _user.LogOffUser();
+            _user.ResetUserModel();
+            _apiHelper.LogOffUser();
             ActivateItemAsync(IoC.Get<LoginViewModel>());
-            NotifyOfPropertyChange(() => IsAccountVisible);
+            NotifyOfPropertyChange(() => IsLoggedIn);
         }
 
         public void ExitApplication()

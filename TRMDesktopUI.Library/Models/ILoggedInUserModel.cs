@@ -16,6 +16,6 @@ namespace TRMDesktopUI.Library.Models
 
         DateTime CreatedDate { get; set; }
 
-        void LogOffUser();
+        void ResetUserModel();
     }
 }

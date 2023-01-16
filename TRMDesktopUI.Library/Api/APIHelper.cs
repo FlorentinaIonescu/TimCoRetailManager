@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using TRMDesktopUI.Library.Models;
@@ -86,6 +87,12 @@ namespace TRMDesktopUI.Library.Api
                     throw new Exception(response.ReasonPhrase);
                 }
             }
+
+            
+        }
+        public void LogOffUser()
+        {
+            _apiClient.DefaultRequestHeaders.Clear();
         }
     }
 }
