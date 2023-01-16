@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using TRMDesktopUI.EventModels;
+using TRMDesktopUI.Library.Models;
 
 namespace TRMDesktopUI.ViewModels
 {
@@ -13,13 +14,14 @@ namespace TRMDesktopUI.ViewModels
     {
         private IEventAggregator _events;
         private SalesViewModel _salesVM;
+        private ILoggedInUserModel _user;
 
         // construction injection
-        public ShellViewModel(IEventAggregator events, SalesViewModel salesVM)
+        public ShellViewModel(IEventAggregator events, SalesViewModel salesVM, ILoggedInUserModel user)
         {
             _events = events;
             _salesVM = salesVM;
-
+            _user = user;
             _events.Subscribe(this);
 
             ActivateItemAsync(IoC.Get<LoginViewModel>());
@@ -30,7 +32,35 @@ namespace TRMDesktopUI.ViewModels
         {
             ActivateItemAsync(_salesVM);
             return Task.CompletedTask;
+            NotifyOfPropertyChange(() => IsAccountVisible);
         }
 
+        public bool IsLoggedIn()
+        {
+            get
+
+            {
+                bool output = false;
+
+                if (string.IsNullOrWhiteSpace(_user.Token) == false)
+                {
+                    output = true;
+                }
+
+                return output;
+            }
+        }
+
+        public void LogOut()
+        {
+            _user.LogOffUser();
+            ActivateItemAsync(IoC.Get<LoginViewModel>());
+            NotifyOfPropertyChange(() => IsAccountVisible);
+        }
+
+        public void ExitApplication()
+        {
+            TryCloseAsync();
+        }
     }
 }

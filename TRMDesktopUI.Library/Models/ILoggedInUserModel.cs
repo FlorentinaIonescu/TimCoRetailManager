@@ -15,5 +15,7 @@ namespace TRMDesktopUI.Library.Models
         string EmailAddress { get; set; }
 
         DateTime CreatedDate { get; set; }
+
+        void LogOffUser();
     }
 }
