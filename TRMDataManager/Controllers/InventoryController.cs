@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,20 +6,28 @@ using System.Net.Http;
 using System.Web.Http;
 using TRMDataManager.Library.DataAccess;
 using TRMDataManager.Library.Models;
-using TRMDataManager.Models;
 
 namespace TRMDataManager.Controllers
 {
     //[Authorize]
-    public class SaleController : ApiController
+    
+    public class InventoryController : ApiController
     {
-        //public List<ProductModel> Get()
-        //{
-        //    ProductData data = new ProductData();
-        //    return data.GetProducts();
-        //}
+        public List<InventoryModel> Get()
+        {
+            InventoryData data = new InventoryData();
 
-        //// GET api/<controller>
+            return data.GetInventory();
+        }
+
+        public void Post(InventoryModel item)
+        {
+            InventoryData data = new InventoryData();
+
+            data.SaveInventoryRecord(item);
+        }
+
+        // GET api/<controller>
         //public IEnumerable<string> Get()
         //{
         //    return new string[] { "value1", "value2" };
@@ -31,22 +38,6 @@ namespace TRMDataManager.Controllers
         //{
         //    return "value";
         //}
-
-        public void Post(SaleModel sale)
-        {
-            SaleData data = new SaleData();
-            string userId = RequestContext.Principal.Identity.GetUserId();
-
-            data.SaveSale(sale, userId);
-        }
-
-        [Route("GetSalesReport")]
-        public List<SaleReportModel> GetSalesReport()
-        {
-            SaleData data = new SaleData();
-
-            return data.GetSaleReport();
-        }
 
         //// POST api/<controller>
         //public void Post([FromBody] string value)
