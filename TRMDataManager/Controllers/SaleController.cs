@@ -11,7 +11,7 @@ using TRMDataManager.Models;
 
 namespace TRMDataManager.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class SaleController : ApiController
     {
         //public List<ProductModel> Get()
@@ -32,6 +32,7 @@ namespace TRMDataManager.Controllers
         //    return "value";
         //}
 
+        [Authorize(Roles = "Admin")]
         public void Post(SaleModel sale)
         {
             SaleData data = new SaleData();
@@ -40,9 +41,19 @@ namespace TRMDataManager.Controllers
             data.SaveSale(sale, userId);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [Route("GetSalesReport")]
         public List<SaleReportModel> GetSalesReport()
         {
+            if (RequestContext.Principal.IsInRole("Admin"))
+            {
+                // do admin stuff
+            }
+            else if (RequestContext.Principal.IsInRole("Manager"))
+            {
+                // do manager stuff
+            }
+
             SaleData data = new SaleData();
 
             return data.GetSaleReport();

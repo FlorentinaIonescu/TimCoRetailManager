@@ -11,7 +11,7 @@ using TRMDataManager.Library.Models;
 
 namespace TRMDataManager.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Cashier,Manager")]
     public class ProductController : ApiController
     {
         
