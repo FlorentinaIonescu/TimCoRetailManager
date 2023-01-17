@@ -45,14 +45,14 @@ namespace TRMDataManager.Controllers
         [Route("GetSalesReport")]
         public List<SaleReportModel> GetSalesReport()
         {
-            if (RequestContext.Principal.IsInRole("Admin"))
-            {
-                // do admin stuff
-            }
-            else if (RequestContext.Principal.IsInRole("Manager"))
-            {
-                // do manager stuff
-            }
+            //if (RequestContext.Principal.IsInRole("Admin"))
+            //{
+            //    // do admin stuff
+            //}
+            //else if (RequestContext.Principal.IsInRole("Manager"))
+            //{
+            //    // do manager stuff
+            //}
 
             SaleData data = new SaleData();
 
