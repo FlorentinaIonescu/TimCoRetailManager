@@ -41,11 +41,19 @@ namespace TRMDesktopUI.ViewModels
             get { return _selectedUser; }
             set
             {
+                if (value == null)
+                {
+                    _selectedUser = new UserModel();
+                    NotifyOfPropertyChange(() => SelectedUser);
+                    return;
+                }
                 _selectedUser = value;
                 SelectedUserName = value.Email;
                 UserRoles = new BindingList<string>(value.Roles.Select(x => x.Value).ToList());
                 LoadRoles();
                 NotifyOfPropertyChange(() => SelectedUser);
+                NotifyOfPropertyChange(() => Users);
+                NotifyOfPropertyChange(() => UserRoles);
             }
         }
 
@@ -160,9 +168,10 @@ namespace TRMDesktopUI.ViewModels
 
         }
 
-        private async Task LoadRoles()
+        private async void LoadRoles()
         {
             var roles = await _userEndpoint.GetAllRoles();
+            AvailableRoles.Clear();
 
             foreach (var role in roles)
             {
@@ -179,6 +188,7 @@ namespace TRMDesktopUI.ViewModels
 
             UserRoles.Add(SelectedAvailableRole);
             AvailableRoles.Remove(SelectedAvailableRole);
+            await LoadUsers();
         }
 
         public async void RemoveSelectedRole()
@@ -187,6 +197,7 @@ namespace TRMDesktopUI.ViewModels
 
             AvailableRoles.Add(SelectedUserRole);
             UserRoles.Remove(SelectedUserRole);
+            await LoadUsers();
         }
     }
 }

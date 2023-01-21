@@ -4,7 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+//using System.Web.Mvc;
+using System.Web.Http;
 using TRMDataManager.Library.DataAccess;
 using TRMDataManager.Library.Models;
 using TRMDataManager.Models;
@@ -12,9 +13,10 @@ using TRMDataManager.Models;
 namespace TRMDataManager.Controllers
 {
     [Authorize]
-    public class UserController : System.Web.Http.ApiController
+    public class UserController : ApiController
     {
         [HttpGet]
+        [Route("api/User")]
         public UserModel GetById()
         {
             string userId = RequestContext.Principal.Identity.GetUserId();

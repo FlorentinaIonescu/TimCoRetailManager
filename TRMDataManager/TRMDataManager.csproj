@@ -313,6 +313,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Product\" />
+    <Folder Include="Views\User2\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
