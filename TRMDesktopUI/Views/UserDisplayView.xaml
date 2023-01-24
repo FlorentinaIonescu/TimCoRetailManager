@@ -39,11 +39,14 @@
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="{Binding Email}" />
                         <TextBlock Text="{Binding RoleList}" FontSize="18" />
-                        
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button x:Name="ReturnToShopping" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding ClickMode.Press, ElementName=ReturnToShopping}" >
+            Return to Shopping
+        </Button>
+        
 
         <!-- Column 1 -->
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1"

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              xmlns:local="clr-namespace:TRMDesktopUI.Views" xmlns:viewmodels="clr-namespace:TRMDesktopUI.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel}"
              mc:Ignorable="d" Background="White" FontSize="28"
              d:DesignHeight="425" d:DesignWidth="800">
@@ -14,6 +15,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -47,9 +49,14 @@
         <PasswordBox x:Name="Password" Grid.Row="3" Grid.Column="2" MinWidth="250"  Margin="0 0 0 10" />
 
         <!-- Login row -->
-        <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Padding="20 5"
-                HorizontalAlignment="Center" x:Name="Login">
-            Log In
-        </Button>
+        <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
+                HorizontalAlignment="Center" >
+            <Button x:Name="Login" Padding="20 5" >
+                Log In
+            </Button>
+            <TextBlock x:Name="LoadingMessage" Text="Loading..." MaxWidth="300"
+                   Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter},FallbackValue=Collapsed}"
+                   TextWrapping="wrap" Margin="0 0 0 20"/>
+        </StackPanel>
     </Grid>
 </UserControl>

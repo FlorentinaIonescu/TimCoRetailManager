@@ -8,6 +8,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TRMDesktopUI.EventModels;
 using TRMDesktopUI.Library.Api;
 using TRMDesktopUI.Library.Models;
 using TRMDesktopUI.Models;
@@ -19,6 +20,17 @@ namespace TRMDesktopUI.ViewModels
         private readonly StatusInfoViewModel _status;
         private readonly IWindowManager _window;
         private readonly IUserEndpoint _userEndpoint;
+        private IEventAggregator _events;
+
+        public UserDisplayViewModel(StatusInfoViewModel status,
+            IWindowManager window, IUserEndpoint userEndpoint, IEventAggregator events)
+        {
+            _events = events;
+            _status = status;
+            _window = window;
+            _userEndpoint = userEndpoint;
+        }
+
         BindingList<UserModel> _users;
 
         public BindingList<UserModel> Users
@@ -123,14 +135,6 @@ namespace TRMDesktopUI.ViewModels
         }
 
         
-
-        public UserDisplayViewModel(StatusInfoViewModel status,
-            IWindowManager window, IUserEndpoint userEndpoint)
-        {
-            _status = status;
-            _window = window;
-            _userEndpoint = userEndpoint;
-        }
         
         protected override async void OnViewLoaded(object view)
         {
@@ -198,6 +202,11 @@ namespace TRMDesktopUI.ViewModels
             AvailableRoles.Add(SelectedUserRole);
             UserRoles.Remove(SelectedUserRole);
             await LoadUsers();
+        }
+
+        public async void ReturnToShopping()
+        {
+            await _events.PublishOnUIThreadAsync(new ReturnToShoppingEvent());
         }
     }
 }

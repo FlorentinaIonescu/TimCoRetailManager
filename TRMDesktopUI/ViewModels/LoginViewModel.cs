@@ -95,18 +95,33 @@ namespace TRMDesktopUI.ViewModels
 			try
 			{
 				ErrorMessage = "";
+				IsLoading = true;
 				var result = await _apiHelper.Authenticate(UserName, Password);
 
 				// Capture more information about the user
 				await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
 
 				await _events.PublishOnUIThreadAsync(new LogOnEvent());
-
+				IsLoading = false;
 			}
 			catch (Exception ex)
 			{
 				ErrorMessage = ex.Message;
+				IsLoading = false;
 			}
 		}
-	}
+
+		private bool _isLoading = false;
+
+		public bool IsLoading
+		{
+			get { return _isLoading; }
+			set
+			{
+				_isLoading = value;
+				NotifyOfPropertyChange(() => IsLoading);
+			}
+		}
+
+    }
 }

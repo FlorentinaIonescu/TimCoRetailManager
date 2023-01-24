@@ -11,7 +11,7 @@ using TRMDesktopUI.Library.Models;
 
 namespace TRMDesktopUI.ViewModels
 {
-    public class ShellViewModel : Conductor<object>, IHandle<LogOnEvent>
+    public class ShellViewModel : Conductor<object>, IHandle<LogOnEvent>, IHandle<ReturnToShoppingEvent>
     {
         private IEventAggregator _events;
         private SalesViewModel _salesVM;
@@ -71,6 +71,12 @@ namespace TRMDesktopUI.ViewModels
         public void ExitApplication()
         {
             TryCloseAsync();
+        }
+
+        public Task HandleAsync(ReturnToShoppingEvent message, CancellationToken cancellationToken)
+        {
+            ActivateItemAsync(_salesVM);
+            return Task.CompletedTask;
         }
     }
 }
