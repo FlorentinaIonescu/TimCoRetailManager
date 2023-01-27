@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.4.33103.184
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33214.272
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRMDataManager", "TRMDataManager\TRMDataManager.csproj", "{607D0640-3D84-4B3B-A2BB-8DEA99A4C286}"
 EndProject
@@ -19,7 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{49F66352-2D9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{0FC6CB79-B14E-43EE-A51A-F91287BB57DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRMApi", "TRMApi\TRMApi.csproj", "{BDC85CB9-D8E8-4ACE-9B10-98DA7F761C91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TRMApi2", "TRMApi\TRMApi2.csproj", "{BDC85CB9-D8E8-4ACE-9B10-98DA7F761C91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRMApi", "TRMApi\TRMApi.csproj", "{CF3E40A6-88AE-4B3D-AFA9-4B282EF00078}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{BDC85CB9-D8E8-4ACE-9B10-98DA7F761C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDC85CB9-D8E8-4ACE-9B10-98DA7F761C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDC85CB9-D8E8-4ACE-9B10-98DA7F761C91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF3E40A6-88AE-4B3D-AFA9-4B282EF00078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF3E40A6-88AE-4B3D-AFA9-4B282EF00078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF3E40A6-88AE-4B3D-AFA9-4B282EF00078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF3E40A6-88AE-4B3D-AFA9-4B282EF00078}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{C7C7E93F-92AC-43B8-8E34-F238395FA351} = {49F66352-2D98-48B3-9D22-564086448A52}
 		{8CD3F421-7358-4CDE-B096-F0768D3C8975} = {0FC6CB79-B14E-43EE-A51A-F91287BB57DB}
 		{BDC85CB9-D8E8-4ACE-9B10-98DA7F761C91} = {49F66352-2D98-48B3-9D22-564086448A52}
+		{CF3E40A6-88AE-4B3D-AFA9-4B282EF00078} = {49F66352-2D98-48B3-9D22-564086448A52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9C6D457-F8B1-4569-8E1E-088653FF83CC}
