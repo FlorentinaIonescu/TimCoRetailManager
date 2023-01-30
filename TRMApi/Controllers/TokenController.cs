@@ -70,7 +70,7 @@ namespace TRMApi.Controllers
             var token = new JwtSecurityToken(
                 new JwtHeader(
                         new SigningCredentials(
-                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySecretKey")),
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySecretKey1234567890")),
                             SecurityAlgorithms.HmacSha256)),
                 new JwtPayload(claims));
 
@@ -81,6 +81,9 @@ namespace TRMApi.Controllers
             };
 
             return output;
+
         }
+
+
     }
 }

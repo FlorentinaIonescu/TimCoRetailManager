@@ -48,7 +48,7 @@ namespace TRMApi
                     jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySecretKey")),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySecretKey1234567890")),
                         ValidateIssuer = false,
                         ValidateAudience = false,
                         ValidateLifetime = true,

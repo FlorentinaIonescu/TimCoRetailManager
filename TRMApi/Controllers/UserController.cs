@@ -36,12 +36,20 @@ namespace TRMApi.Controllers
         }
         
         [HttpGet]
-        //[Route("User")]
+        [Route("User")]
         public UserModel GetById()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier); /*RequestContext.Principal.Identity.GetUserId();*/
             UserData data = new UserData(_config);
-            return data.GetUserById(userId).First();
+            try
+            {
+                return data.GetUserById(userId).First();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         //[Authorize(Roles = "Admin")]
