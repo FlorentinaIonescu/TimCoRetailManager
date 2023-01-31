@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using DocumentFormat.OpenXml;
 using TRMDesktopUI.EventModels;
 using TRMDesktopUI.Library.Api;
 using TRMDesktopUI.Library.Models;
@@ -27,9 +28,9 @@ namespace TRMDesktopUI.ViewModels
             _user = user;
             _apiHelper = apiHelper;
 
-            _events.Subscribe(this);
+            _events.SubscribeOnPublishedThread(this);
 
-            ActivateItemAsync(IoC.Get<LoginViewModel>());
+            ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken());
 
         }
 
@@ -55,16 +56,16 @@ namespace TRMDesktopUI.ViewModels
             }
         }
 
-        public void UserManagement()
+        public async Task UserManagement()
         {
-            ActivateItemAsync(IoC.Get<UserDisplayViewModel>());
+            await ActivateItemAsync(IoC.Get<UserDisplayViewModel>(), new CancellationToken());
         }
 
-        public void LogOut()
+        public async Task LogOut()
         {
             _user.ResetUserModel();
             _apiHelper.LogOffUser();
-            ActivateItemAsync(IoC.Get<LoginViewModel>());
+            await ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken);
             NotifyOfPropertyChange(() => IsLoggedIn);
         }
 
@@ -73,10 +74,11 @@ namespace TRMDesktopUI.ViewModels
             TryCloseAsync();
         }
 
-        public Task HandleAsync(ReturnToShoppingEvent message, CancellationToken cancellationToken)
+        public async Task HandleAsync(ReturnToShoppingEvent message, CancellationToken cancellationToken)
         {
-            ActivateItemAsync(_salesVM);
-            return Task.CompletedTask;
+            await ActivateItemAsync(_salesVM, cancellationToken);
+            NotifyOfPropertyChange(() => IsLoggedIn);
+            //return Task.CompletedTask;
         }
     }
 }
