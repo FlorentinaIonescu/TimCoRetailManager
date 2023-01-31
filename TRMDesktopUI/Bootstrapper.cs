@@ -22,6 +22,8 @@ namespace TRMDesktopUI
         
         public Bootstrapper()
         {
+            //var trig = new Microsoft.Xaml.Behaviors.EventTrigger();
+            //trig.SourceName = "foo";
             Initialize();
 
             ConventionManager.AddElementConvention<PasswordBox>(
@@ -68,9 +70,10 @@ namespace TRMDesktopUI
                     viewModelType, viewModelType.ToString(), viewModelType));
         }
 
-        protected override void OnStartup(object sender, StartupEventArgs e)
+        protected override async void OnStartup(object sender, StartupEventArgs e)
         {
-            DisplayRootViewForAsync<ShellViewModel>();
+            await DisplayRootViewForAsync(typeof(ShellViewModel));
+            //DisplayRootViewForAsync<ShellViewModel>();
         }
 
         protected override object GetInstance(Type service, string key)

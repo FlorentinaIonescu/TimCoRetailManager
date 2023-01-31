@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TRMDesktopUI.EventModels;
 using TRMDesktopUI.Library.Api;
@@ -101,7 +102,7 @@ namespace TRMDesktopUI.ViewModels
 				// Capture more information about the user
 				await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
 
-				await _events.PublishOnUIThreadAsync(new LogOnEvent());
+				await _events.PublishOnUIThreadAsync(new LogOnEvent(), new CancellationToken());
 				IsLoading = false;
 			}
 			catch (Exception ex)
