@@ -20,8 +20,10 @@ namespace TRMDesktopUI.ViewModels
         private IAPIHelper _apiHelper;
 
         // construction injection
-        public ShellViewModel(IEventAggregator events, SalesViewModel salesVM,
-            ILoggedInUserModel user, IAPIHelper apiHelper)
+        public ShellViewModel(IEventAggregator events,
+                              SalesViewModel salesVM,
+                              ILoggedInUserModel user,
+                              IAPIHelper apiHelper)
         {
             _events = events;
             _salesVM = salesVM;
@@ -34,11 +36,10 @@ namespace TRMDesktopUI.ViewModels
 
         }
 
-        public Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
+        public async Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
         {
-            ActivateItemAsync(_salesVM);
+            await ActivateItemAsync(_salesVM, cancellationToken);
             NotifyOfPropertyChange(() => IsLoggedIn);
-            return Task.CompletedTask;
         }
 
         public bool IsLoggedIn
@@ -65,7 +66,7 @@ namespace TRMDesktopUI.ViewModels
         {
             _user.ResetUserModel();
             _apiHelper.LogOffUser();
-            await ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken());
+            await ActivateItemAsync(IoC.Get<SalesViewModel>(), new CancellationToken());
             NotifyOfPropertyChange(() => IsLoggedIn);
         }
 
