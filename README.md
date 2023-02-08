@@ -1,7 +1,7 @@
 # TimCo Retail Manager
 "A retail management system built by TimCo Enterprise Solutions"
 
-Following Tim Corey's tutorial series, I've created this solution in .NET Framework 4.7.2, before upgrading the front-end class library (TRMDesktopUI.Library) and the back-end class library (TRMDataManager.Library) to .NET Standard 2.0, while the UI and the API are now .NET Core 3. There is also a SQL Server database.
+Following Tim Corey's tutorial series, I've created this solution in .NET Framework 4.7.2, before upgrading the front-end class library (TRMDesktopUI.Library) and the back-end class library (TRMDataManager.Library) to .NET Standard 2.0, while the UI and the API are now .NET Core 3. There is also a SQL Server database. Caliburn Micro dependency injection is involved. Visual Studio 2019, Swagger and, separatedly from the app, Postman have been used.
 
 # TimCoRetailManager Phase 1 Complete + Core Upgrade
 
@@ -20,11 +20,12 @@ The worth of transactions is calculated with a tax rate, from which certain prod
 
 # Solution Structure (5 projects)
 
-In Visual Studio, there are four visible folders representing five projects: "API" (includes class library), "Database", "Solution Items" (which only includes a roadmap text concerning phase 2), and "WPF" (includes class library).
+In Visual Studio, there are four visible folders representing five projects: "API" (includes class library), "Database", "Solution Items" (which only includes a roadmap text concerning phase 2), and "WPF" (includes class library). "TRMApi" and "TRMDesktopUI" are the startup projects in Visual Studio.
 
-The API allows exchange of information between the front-end and the database without unnecessarily exposing the latter.
-Our web API consists of Program and Startup, a .json file containing app settings, and most importantly, a number of controllers and models, as well as views for visualizing the API in a web browser. There is also a folder, ”Data”, which contains the class ApplicationDbContext, used within the controllers, as well as a subfolder, ”Migrations”, as a result of migrating from the former ASP.NET database based on Entity Framework.
+The API allows exchange of information between the front-end and the database without unnecessarily exposing the latter; it is also used for registering user accounts.
+Our web API consists of Program and Startup, a .json file containing app settings (connection strings, security key, tax rate), and most importantly, a number of controllers and models, as well as views for visualizing the API in a web browser. There is also a folder, ”Data”, which contains the class ApplicationDbContext, used within the controllers, as well as a subfolder, ”Migrations”, as a result of migrating from the former ASP.NET database based on Entity Framework.
 Packages include Microsoft.AspNetCore.Authentication.JwtBearer, Swashbuckle.AspNetCore.Swagger, System.IdentityModel.Tokens.Jwt, etc.
+The web API runs on Kestrel.
 
 The six controllers are HomeController (self-generated code), InventoryController, ProductController, SaleController, TokenController, and UserController.
 - InventoryController has two methods, one for retrieving the entire inventory of the retail system, and the other for saving an inventory record.
@@ -34,13 +35,13 @@ The six controllers are HomeController (self-generated code), InventoryControlle
 - UserController features four functions: GetById, which matches user id when logging in; GetAllUsers, which retrieves a list of all user accounts to display in the user administration view; GetAllRoles, triggered by selecting a user account, retrieves the list of roles corresponding to the selected account; AddARole and RemoveARole, which are self-explanatory (user roles).
 The models ApplicationUserModel, ErrorViewModel, and UserRolePairModel are all used in the user administration view.
 
-The code behind for the API is stored in the class library: data access files, an additional internal data access file pertaining to the SQL connection, and the models.
+The code behind for the API is stored in the class library: data access files, an additional internal data access file pertaining to the SQL connection (marked as "internal" despite class being public to work with dependency injection), and the models.
 - InventoryData contains two methods, one for retrieving the inventory from the SQL database, while the other saves the inventory record.
 - SaleData, from which interface ISaleData has been extracted, features the code for determining tax rate (as decimal), as well as for creating and saving a sale model; GetSaleReport implements the store procedure needed to create a sales report.
 - ProductData retrieves the list of all products as well as matching the id of a given product.
 - In UserData, GetUserById looks up in the database the user model that mathches the given id
 
-SqlDataAccess, which is internal for increased security, deals with everything pertaining to data exchange with the SQL server, from determining the right connection string to committing transaction, or rolling it back in case connection suddenly fails.
+SqlDataAccess deals with everything pertaining to data exchange with the SQL server, from determining the right connection string to committing transaction, or rolling it back in case connection suddenly fails.
 - LoadData method connects to the database, does a query, determines the type of model each row should be, passes stored procedure name and parameteres as well as the connection string name, determines stored procedure and returns a set of rows.
 - With Execute instead of query, and without passing parameter U, SaveData is otherwise similar.
 - StartTransaction, LoadDataInTransaction and SaveDataInTransaction pertain to sales.
@@ -66,13 +67,14 @@ The UI's class library features the code behind for UI models, (I)ConfigHelper, 
 There are two databases. "TRMData" stores the data necessary for the retail system itself. "ApiAuthDb" (which, upon upgrading from .NET Framework, replaces "EFData", EF standing for Entity Framework) handles the information associated with the user accounts.
 - ApiAuthDb stores the following data: migration history, role claims, roles, user claims, user logins, user roles, users, user tokens.
 - TRMData features the tables: inventory, products, sales, sale details, users. (Minor bug: "SaleTable" and "UserTable" persisting empty duplicates, result of improper naming when having created the stored procedures for the first time.) Stored procedures: Inventory_GetAll and _Insert, Product_GetAll and _Insert, Sale_Insert, _Lookup and _SaleReport, SaleDetail_Insert, and UserLookup.
+Note: when setting up code and registering in the API authentication database, it is needed to manually copy the user data from the table of that database into the other database's user table.
 
 # How Login Works
 
 - Caliburn Micro's SimpleContainer and ConventionManager are priorly setup in Bootstrapper.
 - User enters user id (email) and password into their corresponding text boxes (which will be stored in the variables).
 - In the XAML of the WPF view there is a specification that its DataContext is LoginViewModel.
-- Login button raises event, calls LogIn() task, which will then make the loading indicator visible for the user and store potential error message.
+- Login button raises event, Caliburn Micro matches command to LogIn() task, which will then make the loading indicator visible for the user and store potential error message.
 - In order to assign variable result, we go into Authenticate task from APIHelper.
 - Key value pairs are encoded for grant type, username and password.
 - A HTTP request is made to the web API for posting token.
