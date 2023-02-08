@@ -95,3 +95,11 @@ If an HTTP request returns error, or if a task is cancelled during debugging, co
 - When selected item quantity is left default, user must type in ”1” again, or a different desired number, for the Add to Cart button to work.
 - It is possible for an Admin user to remove their own Admin role and cut off access to user administration.
 - No confirmation for finished transaction other than resetting sales view.
+
+# Images
+
+![Pic_WebAPI](https://user-images.githubusercontent.com/48493484/217619366-04989b05-01d4-49b6-ad65-2670fe964c6c.png)
+![Pic_LoginView](https://user-images.githubusercontent.com/48493484/217619535-428106d7-dbde-445d-8610-e765372a836f.png)
+![Pic_SalesView](https://user-images.githubusercontent.com/48493484/217619679-12218456-4361-4600-a678-f77a59bfe266.png)
+![Pic_UserView](https://user-images.githubusercontent.com/48493484/217619754-9869c04e-1cc4-40d6-8b83-892aeb4045f3.png)
+
