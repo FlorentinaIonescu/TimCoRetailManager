@@ -35,18 +35,3 @@ namespace TRMDesktopUI.Library.Api
 
 }
 
-//public async Task<List<SaleModel>> GetAll()
-//{
-//    using (HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync("/api/Product"))
-//    {
-//        if (response.IsSuccessStatusCode)
-//        {
-//            var result = await response.Content.ReadAsAsync<List<SaleModel>>();
-//            return result;
-//        }
-//        else
-//        {
-//            throw new Exception(response.ReasonPhrase);
-//        }
-//    }
-//}

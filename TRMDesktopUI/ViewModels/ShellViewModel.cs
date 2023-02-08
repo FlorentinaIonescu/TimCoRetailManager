@@ -57,9 +57,22 @@ namespace TRMDesktopUI.ViewModels
             }
         }
 
+        public bool IsLoggedOut
+        {
+            get
+            {
+                return !IsLoggedIn;
+            }
+        }
+
         public async Task UserManagement()
         {
             await ActivateItemAsync(IoC.Get<UserDisplayViewModel>(), new CancellationToken());
+        }
+
+        public async Task LogIn()
+        {
+            await ActivateItemAsync(IoC.Get<LoginViewModel>(), new CancellationToken());
         }
 
         public async Task LogOut()
@@ -68,6 +81,7 @@ namespace TRMDesktopUI.ViewModels
             _apiHelper.LogOffUser();
             await ActivateItemAsync(IoC.Get<SalesViewModel>(), new CancellationToken());
             NotifyOfPropertyChange(() => IsLoggedIn);
+            NotifyOfPropertyChange(() => IsLoggedOut);
         }
 
         public void ExitApplication()
@@ -79,7 +93,7 @@ namespace TRMDesktopUI.ViewModels
         {
             await ActivateItemAsync(_salesVM, cancellationToken);
             NotifyOfPropertyChange(() => IsLoggedIn);
-            //return Task.CompletedTask;
+            NotifyOfPropertyChange(() => IsLoggedOut);
         }
     }
 }

@@ -39,18 +39,19 @@ namespace TRMApi.Controllers
         [HttpGet]
         public List<SaleReportModel> GetSalesReport()
         {
-            //if (RequestContext.Principal.IsInRole("Admin"))
-            //{
-            //    // do admin stuff
-            //}
-            //else if (RequestContext.Principal.IsInRole("Manager"))
-            //{
-            //    // do manager stuff
-            //}
-
             SaleData data = new SaleData(_config);
 
             return data.GetSaleReport();
+        }
+
+        [AllowAnonymous]
+        [Route("GetTaxRate")]
+        [HttpGet]
+        public decimal GetTaxRate()
+        {
+            SaleData data = new SaleData(_config);
+
+            return data.GetTaxRate();
         }
     }
 }

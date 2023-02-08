@@ -77,10 +77,7 @@ namespace TRMApi.Controllers
                 u.Roles = userRoles.Where(x => x.UserId == u.Id)
                      .ToDictionary(key => key.RoleId, val => val.Name);
 
-                //foreach (var r in user.Roles)
-                //{
-                //    u.Roles.Add(r.RoleId, roles.Where(x => x.Id == r.RoleId).First().Name);
-                //}
+                
 
                 output.Add(u);
             }
@@ -88,7 +85,7 @@ namespace TRMApi.Controllers
             return output;
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("Admin/GetAllRoles")]
 
@@ -99,7 +96,7 @@ namespace TRMApi.Controllers
             return roles;
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("Admin/AddRole")]
 
@@ -109,7 +106,7 @@ namespace TRMApi.Controllers
             await _userManager.AddToRoleAsync(user, pairing.RoleName);
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("Admin/RemoveRole")]
 
