@@ -74,7 +74,7 @@ Note: when setting up code and registering in the API authentication database, i
 - Caliburn Micro's SimpleContainer and ConventionManager are priorly setup in Bootstrapper.
 - User enters user id (email) and password into their corresponding text boxes (which will be stored in the variables).
 - In the XAML of the WPF view there is a specification that its DataContext is LoginViewModel.
-- Login button raises event, Caliburn Micro matches command to LogIn() task, which will then make the loading indicator visible for the user and store potential error message.
+- Login button fires command, Caliburn Micro binds the name of the command to the LogIn() function automatically (without ICommand interface or RelayCommand), which will then make the loading indicator visible for the user and store potential error message.
 - In order to assign variable result, we go into Authenticate task from APIHelper.
 - Key value pairs are encoded for grant type, username and password.
 - A HTTP request is made to the web API for posting token.
